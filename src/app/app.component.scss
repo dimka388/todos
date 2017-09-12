@@ -1,0 +1,48 @@
+.header{
+    text-align: center;
+    padding: 20px 0;
+}
+
+.todo-list{
+    margin: 0 auto 30px;
+    max-width: 600px;
+
+    li{
+        display: flex;
+        margin: 0 0 20px;
+        line-height: 20px;
+        justify-content: space-between;
+        &.complete{
+            .text{
+                text-decoration: line-through;
+            }
+        }
+    }
+    .text{
+        width: calc(100% - 220px);
+    }
+    .priority{
+        min-width: 70px;
+        text-align: center;
+        border-radius: 5px;
+        border: 1px solid #333;
+        background: white;
+        &.low{background: rgba(0,128,0,0.3);}
+        &.medium{background: rgba(255,255,0,0.3);}
+        &.high{background: rgba(255,0,0,0.3);}
+    }
+    button{
+        min-width: 70px;
+        border-radius: 5px;
+        border: 1px solid #333;
+        text-align: center;
+        cursor: pointer;
+    }
+}
+
+.todo-form{
+    margin: 0 auto;
+    max-width: 300px;
+    display: flex;
+    justify-content: space-between;
+}

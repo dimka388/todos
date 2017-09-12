@@ -1,0 +1,26 @@
+<div class="header">
+	<h1>Todos:</h1>
+</div>
+<ul class="todo-list">
+	<li *ngFor="let item of items"
+		[ngClass]="{'complete' : item.complete}">
+			<input type="checkbox"
+				value="done"
+				[checked]="item.complete"
+				(change)="onChangeStatus($event, item)">
+			<span class="text">{{item.value}}</span>
+			<span class="priority"
+				[ngClass]="item.priority">{{item.priority}}</span>
+			<button (click)="itemRemove(item)">Delete</button>
+	</li>
+</ul>
+<form class="todo-form" novalidate #itemForm="ngForm"
+	(ngSubmit)="onSubmit(itemForm, $event)">
+	<input type="text" name="text" ngModel>
+	<select name="priority" ngModel>
+		<option value="low">low</option>
+		<option value="medium">medium</option>
+		<option value="high">high</option>
+	</select>
+	<button type="submit">Add</button>
+</form>
