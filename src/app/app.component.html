@@ -1,26 +1,56 @@
-<div class="header">
-	<h1>Todos:</h1>
+<div class="wrapper">
+	<div class="page-header">
+		<h1>Todos:</h1>
+	</div>
+	<ul class="todo-list list-group">
+		<li *ngFor="let item of items"
+			class="list-group-item"
+			[ngClass]="{'complete' : item.complete}">
+				<span class="text">{{item.value}}</span>
+				<select class="priority"
+					name="priority"
+					[ngClass]="item.priority"
+					(change)="itemPriorityChange($event, item)">
+					<option *ngFor='let priorityItem of priorityList'
+						[attr.selected]="item.priority === priorityItem ? true : null"
+						[attr.value]='priorityItem'>
+						{{priorityItem}}
+					</option>
+				</select>
+				<div class="btn-group" role="group" aria-label="...">
+					<button  type="button" class="btn btn-default" (click)="itemUp(item)">
+						<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+					</button>
+					<button  type="button" class="btn btn-default" (click)="itemDown(item)">
+						<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+					</button>
+					<button  type="button" class="btn btn-default" [ngClass]="{'btn-primary' : item.complete}" (click)="itemDone(item)">
+						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+					</button>
+					<button type="button" class="btn btn-default" (click)="itemRemove(item)">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+					</button>
+				</div>
+		</li>
+	</ul>
+
+	<form class="todo-form" novalidate #itemForm="ngForm"
+		(ngSubmit)="onSubmit(itemForm, $event)">
+		<div class="input-group">
+			<input type="text"
+				ngModel
+				name="text"
+				class="form-control"
+				autocomplete="off">
+		</div>
+		<select name="priority" ngModel>
+			<option *ngFor='let priorityItem of priorityList'
+				[attr.value]='priorityItem'>
+				{{priorityItem}}
+			</option>
+		</select>
+		<button type="submit" class="btn btn-default">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+		</button>
+	</form>
 </div>
-<ul class="todo-list">
-	<li *ngFor="let item of items"
-		[ngClass]="{'complete' : item.complete}">
-			<input type="checkbox"
-				value="done"
-				[checked]="item.complete"
-				(change)="onChangeStatus($event, item)">
-			<span class="text">{{item.value}}</span>
-			<span class="priority"
-				[ngClass]="item.priority">{{item.priority}}</span>
-			<button (click)="itemRemove(item)">Delete</button>
-	</li>
-</ul>
-<form class="todo-form" novalidate #itemForm="ngForm"
-	(ngSubmit)="onSubmit(itemForm, $event)">
-	<input type="text" name="text" ngModel>
-	<select name="priority" ngModel>
-		<option value="low">low</option>
-		<option value="medium">medium</option>
-		<option value="high">high</option>
-	</select>
-	<button type="submit">Add</button>
-</form>

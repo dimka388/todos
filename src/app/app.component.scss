@@ -1,17 +1,28 @@
-.header{
-    text-align: center;
-    padding: 20px 0;
+.wrapper{
+    max-width: 600px;
+    margin: 0 auto;
 }
-
+.page-header{
+    text-align: center;
+    margin: 0 0 40px;
+    padding: 40px 0;
+    h1{
+        margin: 0;
+    }
+}
 .todo-list{
     margin: 0 auto 30px;
     max-width: 600px;
+    counter-reset: section;
+    list-style-type: none;
 
     li{
         display: flex;
-        margin: 0 0 20px;
-        line-height: 20px;
         justify-content: space-between;
+        &:before {
+            counter-increment: section;
+            content: counters(section,".") ". ";
+        }
         &.complete{
             .text{
                 text-decoration: line-through;
@@ -19,7 +30,7 @@
         }
     }
     .text{
-        width: calc(100% - 220px);
+        width: calc(100% - 270px);
     }
     .priority{
         min-width: 70px;
@@ -31,18 +42,19 @@
         &.medium{background: rgba(255,255,0,0.3);}
         &.high{background: rgba(255,0,0,0.3);}
     }
-    button{
-        min-width: 70px;
-        border-radius: 5px;
-        border: 1px solid #333;
-        text-align: center;
-        cursor: pointer;
-    }
 }
 
 .todo-form{
-    margin: 0 auto;
-    max-width: 300px;
     display: flex;
     justify-content: space-between;
+    .input-group{
+        width: calc(100% - 150px);
+    }
+    select{
+        text-align: center;
+        min-width: 70px;
+        border-radius: 5px;
+        border: 1px solid #333;
+        background: white;
+    }
 }
